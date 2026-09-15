@@ -1,126 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StudyFlow - Smart Study Assistant</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StudyFlow UI Enhanced</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="brand">Study<span>Flow</span></div>
-    <nav>
-      <button class="nav-btn active" data-page="dashboard">🏠 Dashboard</button>
-      <button class="nav-btn" data-page="subjects">📚 Subjects</button>
-      <button class="nav-btn" data-page="planner">🗓️ Study Planner</button>
-      <button class="nav-btn" data-page="tasks">✅ Tasks</button>
-      <button class="nav-btn" data-page="focus">⏱️ Focus Timer</button>
-      <button class="nav-btn" data-page="progress">📈 Progress</button>
-      <button class="nav-btn" data-page="settings">⚙️ Settings</button>
-    </nav>
-    <div class="sidebar-bottom">
-      <div class="mini-card">🔥 <b id="sideStreak">0</b> day streak</div>
-    </div>
-  </aside>
+<div class="sidebar">
+<h2>StudyFlow</h2>
+<ul>
+<li>🏠 Dashboard</li>
+<li>📚 Subjects</li>
+<li>✅ Tasks</li>
+<li>⏱️ Focus Timer</li>
+<li>📈 Progress</li>
+</ul>
+</div>
+<div class="main">
+<div class="hero">
+<h1>Plan Better. Study Smarter. Achieve More.</h1>
+<p>Your personalized study planner for academic success.</p>
+</div>
 
-  <main class="main">
-    <header class="topbar">
-      <button id="menuBtn" class="menu-btn">☰</button>
-      <div>
-        <p class="eyebrow">SMART STUDY ASSISTANT</p>
-        <h1 id="pageTitle">Dashboard</h1>
-      </div>
-      <div class="profile">Demo Student</div>
-    </header>
+<div class="cards">
+<div class="card">📚<h3>4</h3><p>Subjects</p></div>
+<div class="card">✅<h3>24</h3><p>Tasks</p></div>
+<div class="card">⏰<h3>18</h3><p>Study Hours</p></div>
+<div class="card">🔥<h3>7</h3><p>Streak</p></div>
+</div>
 
-    <section id="dashboard" class="page active">
-      <div class="hero">
-        <div>
-          <p class="eyebrow">WELCOME BACK 👋</p>
-          <h2>Plan Better. Study Smarter. Achieve More.</h2>
-          <p>Organize subjects, tasks and study sessions in one simple workspace.</p>
-        </div>
-        <button class="primary" onclick="showPage('planner')">Create Study Plan</button>
-      </div>
-      <div class="stats-grid" id="stats"></div>
-      <div class="two-col">
-        <div class="card">
-          <div class="section-head"><h3>Today's Tasks</h3><button class="text-btn" onclick="showPage('tasks')">View all</button></div>
-          <div id="todayTasks"></div>
-        </div>
-        <div class="card">
-          <div class="section-head"><h3>Upcoming Exams</h3></div>
-          <div id="exams"></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="subjects" class="page">
-      <div class="section-head"><div><h2>Your Subjects</h2><p class="muted">Track topics and exam progress.</p></div><button class="primary" onclick="openSubjectModal()">+ Add Subject</button></div>
-      <div id="subjectsGrid" class="cards-grid"></div>
-    </section>
-
-    <section id="planner" class="page">
-      <div class="section-head"><div><h2>Smart Study Planner</h2><p class="muted">Create a practical plan from your available time.</p></div></div>
-      <div class="card planner-form">
-        <div class="form-grid">
-          <label>Subject<select id="planSubject"></select></label>
-          <label>Exam Date<input id="planExam" type="date"></label>
-          <label>Available Hours / Day<input id="planHours" type="number" min="1" value="2"></label>
-          <label>Difficulty<select id="planDifficulty"><option>Easy</option><option selected>Medium</option><option>Hard</option></select></label>
-        </div>
-        <label>Topics (comma separated)<textarea id="planTopics" placeholder="Arrays, OOP, Exceptions, Collections"></textarea></label>
-        <button class="primary" onclick="generatePlan()">Generate Smart Plan</button>
-      </div>
-      <div id="planOutput" class="plan-list"></div>
-    </section>
-
-    <section id="tasks" class="page">
-      <div class="section-head"><div><h2>Task Manager</h2><p class="muted">Stay on top of assignments and revision.</p></div><button class="primary" onclick="openTaskModal()">+ Add Task</button></div>
-      <div class="filters">
-        <button class="filter active" data-filter="all">All</button><button class="filter" data-filter="pending">Pending</button><button class="filter" data-filter="completed">Completed</button><button class="filter" data-filter="high">High Priority</button>
-      </div>
-      <div class="card" id="taskList"></div>
-    </section>
-
-    <section id="focus" class="page">
-      <div class="center-card card">
-        <p class="eyebrow">FOCUS MODE</p>
-        <h2>Pomodoro Timer</h2>
-        <div id="timer" class="timer">25:00</div>
-        <div class="timer-controls"><button class="primary" id="timerBtn">Start</button><button class="secondary" id="resetBtn">Reset</button></div>
-        <p class="muted">25 minutes focus · 5 minutes break</p>
-        <div class="session-stat">Sessions completed: <b id="sessionsCount">0</b> · XP earned: <b id="xpCount">0</b></div>
-      </div>
-    </section>
-
-    <section id="progress" class="page">
-      <div class="section-head"><div><h2>Progress & Gamification</h2><p class="muted">Small daily wins build strong study habits.</p></div></div>
-      <div class="stats-grid" id="progressStats"></div>
-      <div class="two-col">
-        <div class="card"><h3>Subject Progress</h3><div id="progressSubjects"></div></div>
-        <div class="card"><h3>Achievements</h3><div class="badges"><span>🎯 First Study Session</span><span>🔥 7-Day Streak</span><span>✅ 10 Tasks Completed</span><span>🏆 Exam Ready</span></div></div>
-      </div>
-    </section>
-
-    <section id="settings" class="page">
-      <div class="card settings">
-        <h2>Settings</h2>
-        <label>Daily Study Goal (hours)<input id="dailyGoal" type="number" min="1" value="2"></label>
-        <label>Theme<select id="theme"><option value="light">Light</option><option value="dark">Dark</option></select></label>
-        <button class="primary" onclick="saveSettings()">Save Settings</button>
-        <button class="danger" onclick="resetData()">Reset Demo Data</button>
-      </div>
-    </section>
-  </main>
-
-  <div id="modal" class="modal hidden">
-    <div class="modal-box">
-      <button class="close" onclick="closeModal()">×</button>
-      <div id="modalContent"></div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+<div class="section">
+<h2>🏆 Achievements</h2>
+<div class="badges">
+<span>🏅 First Session</span>
+<span>🔥 7 Day Streak</span>
+<span>📚 10 Tasks Completed</span>
+<span>🎯 Exam Ready</span>
+</div>
+</div>
+</div>
 </body>
 </html>
